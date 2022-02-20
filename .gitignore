@@ -1,0 +1,6 @@
+.idea/
+venv/
+*.pyc
+pycache
+config/common/env.json
+
