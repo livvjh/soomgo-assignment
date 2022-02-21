@@ -1,6 +1,6 @@
 from rest_framework.exceptions import APIException
 
-from config.common.response_code import code_to_alert
+from config.common.response_code import code_to_message
 
 JSON_CODE = 'code'
 JSON_MESSAGE = 'message'
@@ -11,12 +11,13 @@ JSON_DATA = 'data'
 def response_serializer(code, data=None):
     json_data = dict()
     json_data[JSON_CODE] = code
-    json_data[JSON_MESSAGE] = code_to_alert(code)
-    json_data[JSON_DATA] = data
+    json_data[JSON_MESSAGE] = code_to_message(code)
+    if data is not None:
+        json_data[JSON_DATA] = data
     return json_data
 
 
-def essential_elem(request, name):
+def essential_param(request, name):
     try:
         if request.method == 'GET':
             data = request.GET[name]
@@ -36,7 +37,7 @@ def essential_elem(request, name):
     return data
 
 
-def optional_elem(request, name, default_value=''):
+def optional_param(request, name, default_value=''):
     try:
         if request.method == 'GET':
             data = request.GET[name]
