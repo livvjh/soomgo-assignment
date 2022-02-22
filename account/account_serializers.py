@@ -18,7 +18,16 @@ class AccountSerializer(serializers.ModelSerializer):
         ]
 
 
-class CreateAccountSerializer(serializers.ModelSerializer):
+class LogInSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'email',
+            'password'
+        ]
+
+
+class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [

@@ -22,6 +22,9 @@ class Category(models.Model):
         managed = True
         db_table = 'category'
 
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Product(TimestampedModel):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
@@ -32,6 +35,9 @@ class Product(TimestampedModel):
     class Meta:
         managed = True
         db_table = 'product'
+
+    def __str__(self):
+        return self.name
 
 
 class Purchase(TimestampedModel):
