@@ -1,20 +1,12 @@
 from drf_yasg import openapi
 
 
-def create_open_api(parameter_key: str, parameter_type: str, description: str, required: bool):
-    if parameter_type == 'str':
-        type_value = openapi.TYPE_STRING
-    elif parameter_type == 'int':
-        type_value = openapi.TYPE_INTEGER
-    elif parameter_type == 'arr':
-        type_value = openapi.TYPE_ARRAY
-    elif parameter_type == 'bool':
-        type_value = openapi.TYPE_BOOLEAN
-
+def create_openapi(parameter_key: str, parameter_type: str, required: bool, description: str,
+                   parameter_location: str = openapi.IN_QUERY):
     return openapi.Parameter(
-        parameter_key,
-        openapi.IN_BODY,
+        name=parameter_key,
+        in_=parameter_location,
         description=description,
         required=required,
-        type=type_value
+        type=parameter_type
     )

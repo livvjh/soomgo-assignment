@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
-
 from account.models import User
 
 
@@ -22,9 +19,6 @@ class Category(models.Model):
         managed = True
         db_table = 'category'
 
-    def __str__(self):
-        return f'{self.name}'
-
 
 class Product(TimestampedModel):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
@@ -41,8 +35,8 @@ class Product(TimestampedModel):
 
 
 class Purchase(TimestampedModel):
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)  # 여러개 주문 가능 30개까지
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)  # 구매 유저 정보
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
     class Meta:
         managed = True

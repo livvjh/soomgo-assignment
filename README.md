@@ -1,7 +1,15 @@
+# Soomgo 과제 
+## 기능
+- 어드민 계정으로 상품 등록
+- 일반 유저로 상품 구매
+- 구매한 상품 상세 보기
+- 구매한 상품 목록 보기
+
+
 # ****Getting Started****
 ### Project Setup
 ```markdown
-1. $ git clone https://deploy.addcampus.com/career-wallet/career-wallet.git
+1. $ git@github.com:live-jh/soomgo-assignment.git
 2. $ pip install virtualenv
 3. $ virtualenv venv
 4. $ source venv/bin/activate
@@ -28,44 +36,60 @@
 # Project Structure
 
 ```markdown
-.
-├── 📁 backend
-│   ├── 📁 _api_cms         # cms api (사용 x)
-│   ├── 📁 _api_web         # web api 
-│   ├── 📁 _common          # 공통
-│   ├── 📁 account          # 유저
-│   ├── 📁 addy             # 애디 연동
-│   ├── 📁 company          # 회사
-│   ├── 📁 recruit          # 채용 공고
-│   └── 📁 resume           # 이력서
+🚀 PROJECT
+├── 📄 README.md
+├── 📁 account
+│   ├── 📄 __init__.py
+│   ├── 📄 account_serializers.py
+│   ├── 📄 admin.py
+│   ├── 📄 apps.py
+│   ├── 📁 migrations
+│   ├── 📄 models.py
+│   ├── 📄 tests.py
+│   ├── 📄 urls.py
+│   └── 📄 views.py
 ├── 📁 config
-│   ├── 📁 authorization    # 인증 
-│   ├── 📁 common           # 공통 모듈
-│   ├── 📁 settings         # settings.py 
-│   ├── 📄 urls.py          # root urls
-│   └── 📄 wsgi.py          # wsgi
-├── 📄 eb-deploy.sh         # 배포 스크립트
-├── 📁 frontend             # 프론트엔드 앱
-│   ├── 📁 cms              # 사용 x 
-│   ├── 📁 templates        # 빌드 후 index.html
-│   └── 📁 web              # front react app
+│   ├── 📄 __init__.py
+│   ├── 📄 asgi.py
+│   ├── 📁 common
+│   │   ├── 📄 env.json                 # 환경변수
+│   │   ├── 📄 exception_handler.py     # 커스텀 에러 핸들러
+│   │   ├── 📄 library_classes.py       # 함수 라이브러리
+│   │   └── 📄 response_code.py         # 상수 응답 코드
+│   ├── 📄 settings.py                  # 프로젝트 세팅
+│   ├── 📄 settings_test.py             # 테스트 세팅
+│   ├── 📄 test_runner.py               # 테스트 러너
+│   ├── 📄 urls.py
+│   ├── 📄 utils                       
+│   │   └── 📄 swagger_parameters.py    # 스웨거 openapi 함수
+│   └── 📄 wsgi.py
 ├── 📄 manage.py
+├── 📁 product
+│   ├── __init__.py
+│   ├── 📄 admin.py
+│   ├── 📄 apps.py
+│   ├── 📁 migrations
+│   ├── 📄 models.py
+│   ├── 📄 product_serializers.py
+│   ├── 📄 tests.py
+│   ├── 📄 urls.py
+│   └── 📄 views.py
 ├── 📄 requirements.txt
-├── 📄 README.md            # 프로젝트 문서
-└── 📄 todo-list.py         # 작업 목록
+└── 📁 templates
 ```
 
 
 # DB ERD
-> 공사중 👷🏼
+![soomgo](https://user-images.githubusercontent.com/48043799/155637276-60166ca4-458d-4dd3-9e32-b1de6c4d5dbe.png)
+
 
 
 # Test Guide
 ### 테스트 명령
-- `$ python manage.py test --settings='config.settings_test' --verbosity 3`
+- `$ python manage.py test --verbosity 3`
 ### 커버리지 테스트
 - `$ coverage run manage.py test`
 ### 커버리지 리포트
-- `$ coverage report -m`
+- `$ coverage report`
 
 

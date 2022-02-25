@@ -1,7 +1,8 @@
 from django.contrib import auth
 from django.contrib.auth import logout, login
+from django.contrib.auth.hashers import check_password
 from django.db import IntegrityError
-from drf_yasg.utils import swagger_auto_schema
+from drf_yasg.utils import swagger_auto_schema, no_body
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -17,19 +18,20 @@ from config.common.response_code import (
     MSG_RSP_USER_NOT_MATCHED,
     MSG_RSP_USER_EMAIL_ALREADY_EXISTS
 )
-from config.utils.swagger_parameters import create_open_api
 
 
 class LogInAPI(APIView):
     """ 유저 로그인 """
-    email = create_open_api('email', 'str', '이메일(ID)을 입력하세요.', True)
-    password = create_open_api('password', 'str', '비밀번호를 입력하세요.', True)
+    permission_classes = ()
+    authentication_classes = ()
 
-    @swagger_auto_schema(tags=['로그인 API'], request_body=LogInSerializer, responses={200: 'Success'})
+    @swagger_auto_schema(tags=['로그인 API'], request_body=LogInSerializer, responses={200: 'success'})
     def post(self, request):
         email = essential_param(request, 'email')
         password = essential_param(request, 'password')
+
         user = auth.authenticate(request, email=email, password=password)
+
         if user is not None:
             login(request, user)
         else:
@@ -37,18 +39,16 @@ class LogInAPI(APIView):
                 MSG_RSP_USER_NOT_MATCHED,
                 500
             )
+
         return Response(response_serializer(STATUS_SUCCESS), status=status.HTTP_200_OK)
 
 
 class SignUpAPI(APIView):
     """ 유저 회원가입 """
     permission_classes = ()
+    authentication_classes = ()
 
-    email = create_open_api('email', 'str', '이메일(ID)을 입력하세요.', True)
-    password = create_open_api('password', 'str', '비밀번호를 입력하세요.', True)
-    username = create_open_api('username', 'str', '유저명을 입력하세요.', True)
-
-    @swagger_auto_schema(tags=['회원가입 API'], request_body=SignUpSerializer, responses={200: 'Success'})
+    @swagger_auto_schema(tags=['회원가입 API'], request_body=SignUpSerializer, responses={200: 'success'})
     def post(self, request):
         email = essential_param(request, 'email')
         username = essential_param(request, 'username')
@@ -70,6 +70,7 @@ class SignUpAPI(APIView):
 
 
 class LogOutAPI(APIView):
+    @swagger_auto_schema(tags=['로그아웃 API'], request_body=no_body, responses={200: 'success'})
     def post(self, request):
         logout(request)
         return Response(response_serializer(STATUS_SUCCESS), status=status.HTTP_200_OK)

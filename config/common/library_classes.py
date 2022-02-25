@@ -2,18 +2,13 @@ from rest_framework.exceptions import APIException
 
 from config.common.response_code import code_to_message
 
-JSON_CODE = 'code'
-JSON_MESSAGE = 'message'
-JSON_DATA = 'data'
 
-
-# 응답 시리얼라이져
 def response_serializer(code, data=None):
     json_data = dict()
-    json_data[JSON_CODE] = code
-    json_data[JSON_MESSAGE] = code_to_message(code)
+    json_data['code'] = code
+    json_data['message'] = code_to_message(code)
     if data is not None:
-        json_data[JSON_DATA] = data
+        json_data['data'] = data
     return json_data
 
 
