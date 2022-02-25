@@ -60,7 +60,7 @@ class SignUpAPI(APIView):
                 MSG_RSP_USER_EMAIL_ALREADY_EXISTS,
                 500
             )
-        user.set_password(password)
+        user.set_password(str(password))
         user.save()
         login(request, user)
         context = {
