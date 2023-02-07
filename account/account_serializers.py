@@ -22,7 +22,7 @@ class LogInSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'email',
+            'email',  # todo validator
             'password'
         ]
 

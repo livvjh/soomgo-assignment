@@ -31,6 +31,7 @@ class UserTest(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 200)
+        # todo 악성 이메일 데이터 (길이, 변조등) 체크
         self.assertEqual(response.json()['data']['account']['email'], 'test_1@test.com')
         self.assertFalse(response.json()['data']['account']['is_superuser'])
         self.assertTrue(response.json()['data']['account']['is_active'])

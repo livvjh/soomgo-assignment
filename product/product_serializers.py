@@ -35,6 +35,7 @@ class ProductPostSerializer(serializers.ModelSerializer):
 
 class PurchasePostSerializer(serializers.ModelSerializer):
     product_id_set = serializers.ListField()
+    # todo drf document ref serializer를 통해 validation check
 
     class Meta:
         model = Purchase
